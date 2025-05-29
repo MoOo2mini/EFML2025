@@ -81,6 +81,9 @@ Therefore, finding the optimal batch size is key to balancing the trade-off betw
 ### Interplay with LoRA
 
 이건 GPT에서 추출 정리
+LoRA기 때문에 다른 점 (고려사항) ex) LoRA is often used in resource-constrained environments that demand quick, reliable hyperparameter choices without exhaustive tuning.기 때문에 관련 연구가 있다거나
+Fine tuning 상황
+그리고 아직 관련 연구가 부족하다.
 
 ## The Role of Batch Size in LoRA Training
 
