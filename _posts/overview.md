@@ -83,7 +83,7 @@ Accurate mini batch, Data Parallelism, Critical Batch Size
 
 이건 GPT에서 추출 정리
 
-## Experiments
+## The Role of Batch Size in LoRA Training
 
 ### Experimental setup 
 
