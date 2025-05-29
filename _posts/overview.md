@@ -61,31 +61,18 @@ In this post, we provides an insights on batch size in LoRA fine-tuning, and out
 1. Main Finding
 2. Main Message
 
+## Motivation
 
-## Pre-training of Foundation Adapters
+## Background
 
-Given a "frozen" pre-trained LLM $$S$$ with trainable adapters $$A$$ attached to each of its block layers, our research question is: *How can we pre-train the adapters $$A$$*? We may follow a previous approach <d-cite key="gunter2024appleintelligencefoundationlanguage,cui2024efficienteffectivetextencoding"></d-cite> to perform continual pre-training with $$S$$ to learn $$A$$. However, we further extend the previous approach with classical knowledge distillation <d-cite key="wu2024rethinkingkullbackleiblerdivergenceknowledge,muralidharan2024compactlanguagemodelspruning"></d-cite>. In particular, we introduce a joint training method to pre-train the adapters. The method comprises two key modules: knowledge distillation and continual pre-training, as illustrated in Figure 1.
+### General Effect of Batch Size
 
-- Knowledge distillation (KD): A larger, frozen pre-trained LLM is employed as the teacher model to facilitate knowledge distillation, transferring its knowledge to a smaller student model that consists of the frozen $$S$$ augmented with trainable adapters $$A$$. Specifically, the Kullback-Leibler divergence is used to measure the difference between the LM head logits of the teacher and student models, resulting in a corresponding knowledge distillation loss $$\mathcal{L}_{\text{KD}}$$ during training, which guides the student to mimic the teacher’s output distributions.
-
-
-- Continual pre-training (CPT): We continually pre-train the student model (here, $$S$$ with adapters $$A$$) using a causal language modeling objective. By keeping all the original weights of $$S$$ frozen and updating only the adapters' weights, we efficiently adapt the model to new data without overwriting its existing knowledge. A corresponding cross-entropy loss $$\mathcal{L}_{\text{LM}}$$ is computed based on the LM head logit outputs of the student model during training.
-
-
-- Joint training:  The knowledge distillation and continual pre-training tasks are jointly optimized on a text corpus, with the final objective loss computed as a linear combination of the knowledge distillation loss and the cross-entropy loss: $$\mathcal{L} = \alpha\mathcal{L}_{\text{KD}} + (1 - \alpha)\mathcal{L}_{\text{LM}}$$.
-
-
-
-{% include figure.html path="assets/img/2025-04-28-foundation-adapter/Model.png" class="img-fluid" %}
-<div class="caption">
-    Figure 1. Illustration of our joint approach for pre-training foundation adapters.
-</div>
-
-
+### Interplay with LoRA
 
 ## Experiments
 
-### General setup 
+### Experimental setup 
+
 
 In all experiments, we use Low-Rank Adaptation (LoRA) <d-cite key="hu2022lora"></d-cite> exclusively as our adapters, applying them across all linear layers in the model architecture. In addition, we set the mixture weight $$\alpha$$ in the final loss equation to 0.5, i.e. $$\mathcal{L} = 0.5\mathcal{L}_{\text{KD}} + 0.5\mathcal{L}_{\text{LM}}$$.
 
