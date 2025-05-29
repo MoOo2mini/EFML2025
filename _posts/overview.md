@@ -67,7 +67,18 @@ In this post, we provides an insights on batch size in LoRA fine-tuning, and out
 
 ### General Effect of Batch Size
 
+In traditional SGD-based training, batch size involves a well-known trade-off:
+
+Smaller batches provide noisier but more frequent gradient updates. This noise can act as a form of regularization, potentially helping the model generalize by avoiding over-fitting to sharp minima. Frequent updates mean the model’s parameters are adjusted more times per epoch, which can lead to faster convergence in terms of number of epochs (though each epoch sees fewer examples per update).
+
+Larger batches yield more stable, accurate gradients (approaching full-batch gradient descent). This can converge in fewer steps since each step is a nearly optimal descent direction for the current data distribution. However, large batches often require a proportionally higher learning rate to maintain step size – otherwise each update, though precise, may move parameters only slightly. If the learning rate is not tuned, large batches can converge slowly in terms of wall-clock time or get stuck in suboptimal minima. Additionally, very large batches are known to risk converging to sharper minima that generalize poorly. Empirically, training with extremely large batches has shown test accuracy drops (a generalization gap), compared to using smaller batches. The underlying reason is that small-batch methods tend to find “flatter” minima (with many small eigenvalues of the Hessian), whereas large-batch methods can overfit to a narrow basin of the loss surface. These sharp minima fit the training data well but don’t transfer as robustly to test data. This phenomenon was documented by Keskar et al. (2017), who observed up to 5% lower test accuracy when using large batches, and linked it to the sharpness of the solutions.
+
+Large batch training 관련
+Accurate mini batch, Data Parallelism, Critical Batch Size
+
 ### Interplay with LoRA
+
+이건 GPT에서 추출 정리
 
 ## Experiments
 
