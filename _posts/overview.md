@@ -66,6 +66,7 @@ In this post, we explore how batch size influences the training of LoRA-based me
 
 Figrue 1. 기본 PiSSA config.에서의 PiSSA, MiLoRA, LoRA results
 We fine-tuned [Llama-2-7B](https://huggingface.co/meta-llama/Llama-2-7b-hf) using LoRA and its recent variants (PiSSA, MiLoRA), adopting the hyperparameter configuration from ? et al. (XXXX). Figure 1 presents the test accuracy on GSM8K after training on the MetaMath dataset for a single epoch. While ? et al. (XXXX) achieves strong performance under their original settings, we observe that MiLoRA outperforms other methods when simply reducing the batch size. This result highlights a key insight: training effectiveness is highly sensitive to configuration choices, especially batch size.
+
 To better understand the impact of batch size on fine-tuning with low-rank adaptation, we focus on the following two questions:
 
 1. How does batch size affect the training dynamics of LoRA-based methods when paired with an optimally tuned learning rate?
@@ -90,8 +91,10 @@ Therefore, finding the optimal batch size is key to balancing the trade-off betw
 LoRA variants 발전 + PiSSA & MiLoRA 간략 설명
 
 이건 GPT에서 추출 정리
+
 LoRA기 때문에 다른 점 (고려사항) ex) LoRA is often used in resource-constrained environments that demand quick, reliable hyperparameter choices without exhaustive tuning.기 때문에 관련 연구가 있다거나
 Fine tuning 상황
+
 그리고 아직 관련 연구가 부족하다.
 
 ## The Role of Batch Size in LoRA Training
@@ -99,9 +102,14 @@ Fine tuning 상황
 ### Experimental setup 
 
 In all experiments, we use [Llama-2-7B](https://huggingface.co/meta-llama/Llama-2-7b-hf) as the baseline model. We compare 3 different methods (LoRA, PiSSA, MiLoRA) on various downstream tasks.
+
 itemize로 설명..?
 
 We conduct our experiments on 
+
+Figure X. test accuracy for same epoch
+
+Figure Y. test accruacy for same steps
 
 ## Conclusion
 
