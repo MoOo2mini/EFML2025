@@ -102,11 +102,13 @@ Fine tuning 상황
 
 ### Experimental setup 
 
-In all experiments, we use [Llama-2-7B](https://huggingface.co/meta-llama/Llama-2-7b-hf) as the baseline model. We compare 3 different methods (LoRA, PiSSA, MiLoRA) on various downstream tasks.
+In all our experiments, we adopt the LLaMA-2-7B model as the backbone for fine-tuning. Our study focuses on comparing three popular PEFT (Parameter-Efficient Fine-Tuning) methods: LoRA, PiSSA, and MiLoRA, across a range of downstream tasks.
 
-itemize로 설명..?
+To thoroughly analyze training behavior, we vary two key hyperparameters: batch size and learning rate. Specifically, we explore batch sizes of 4, 8, 16, 64, and 128, and learning rates of 1e-3, 3e-4, 5e-5, 2e-5, 5e-6, and 1e-6.
 
-We conduct our experiments on 
+These hyperparameter choices are grounded in configurations commonly used across recent PEFT literature, including CORA, LoRA+, LQ-LoRA, QLoRA, and OLoRA. By aligning with these frequently adopted settings, our goal is to ensure fair and representative comparisons that reflect real-world usage patterns in PEFT research.
+
+We conduct all experiments using the Hugging Face transformers and peft libraries, and monitor training dynamics such as convergence speed and final performance under each configuration.
 
 Figure X. test accuracy for same epoch
 
