@@ -70,7 +70,7 @@ To better understand the impact of batch size on fine-tuning with low-rank adapt
 
 1. How does batch size affect the training dynamics of LoRA-based methods when paired with an optimally tuned learning rate?
 2. Given a fixed data budget, how can we select the batch size that yields the best performance?
-3. 
+   
 Through this lens, we aim to clarify the relationship between batch size and fine-tuning efficacy in LoRA-style adaptation methods.
 
 ## Background
