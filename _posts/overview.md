@@ -1,28 +1,24 @@
 ---
 layout: distill
-title: Pre-training of Foundation Adapters for LLM Fine-tuning
-description: Adapter-based fine-tuning methods insert small, trainable adapters into frozen pre-trained LLMs, significantly reducing computational costs while maintaining performance. However, despite these advantages, traditional adapter fine-tuning suffers from training instability due to random weight initialization. This instability can lead to inconsistent performance across different runs.  Therefore, to address this issue, this blog post introduces pre-trained foundation adapters as a technique for weight initialization. This technique potentially improves the efficiency and effectiveness of the fine-tuning process. Specifically, we combine continual pre-training and knowledge distillation to pre-train foundation adapters. Experiments confirm the effectiveness of this approach across multiple tasks. Moreover, we highlight the advantage of using pre-trained foundation adapter weights over random initialization specifically in a summarization task.
+title: The Effect of Batch Size in LoRA Training.
+description: TODO.
 
 
 
-date: 2025-04-28
+date: 2025-05-29
 future: true
 htmlwidgets: true
 hidden: false
 
 # Anonymize when submitting
 authors:
-  - name: Linh The Nguyen
-    url: https://scholar.google.com/citations?user=dGrDyKwAAAAJ&hl
+  - name: Sangyoon Lee
+    url: https://sangyoon-lee99.github.io/
     affiliations:
-      name: Qualcomm AI Research<d-footnote>Qualcomm Vietnam Company Limited</d-footnote>
-  - name: Dat Quoc Nguyen
-    url: https://datquocnguyen.github.io
-    affiliations:
-      name: Qualcomm AI Research<d-footnote>Qualcomm Vietnam Company Limited</d-footnote>
-
+      name: Postech GSAI
+ 
 # must be the exact same name as your blogpost
-bibliography: 2025-04-28-foundation-adapter.bib  
+bibliography: overview.bib  
 
 # Add a table of contents to your post.
 #   - make sure that TOC names match the actual section names
@@ -55,12 +51,15 @@ _styles: >
 ---
 
 
-
 ## Introduction
 
-Adapter-based fine-tuning methods have revolutionized the customization of large language models (LLMs) by inserting small, trainable adapters inside block layers of frozen pre-trained LLMs <d-cite key="pmlr-v97-houlsby19a,hu2022lora,hu-etal-2023-llm"></d-cite>. These methods reduce computational and memory costs compared to full fine-tuning by training fewer than 1% of the original parameters while maintaining similar performance. The modular nature of adapters also enables efficient multi-task learning and task composition, allowing organizations to maintain a single base model while deploying multiple specialized adaptations for different downstream tasks or domains <d-cite key="nguyen-etal-2021-trankit,gunter2024appleintelligencefoundationlanguage"></d-cite>. 
+Low-Rank Adaptation (LoRA) has become a popular method for fine-tuning large language models (LLMs) efficiently by injecting small trainable low-rank matrices into the model’s weights. While LoRA and its variants show impressive performance, the optimal training settings for LoRA still remain under-explored, particularly the impact of batch size. This is particularly problematic in practical settings, as LoRA is frequently employed in resource-constrained environments where practitioners must make fast and effective hyperparameter decisions without exhaustive tuning. Moreover, recent LoRA variants like PiSSA and MiLoRA propose seemingly contradictory initialization strategies (principal vs. minor singular components), making it difficult to discern best practices since each work uses different experimental setups. This lack of standardization contributes to performance discrepancies across studies, obscuring the true impact of design decisions. From this view, we aim to demystify the following question: 
+“How batch size affects the training dynamics of LoRA-based methods”
 
-The issue here is that random initialization of adapter weights in fine-tuning leads to training instability and inconsistent performance across different runs <d-cite key="dodge2020finetuningpretrainedlanguagemodels,srinivasan2024differentefficient"></d-cite>, making it challenging to efficiently and reliably adapt models for downstream tasks <d-cite key="chen-etal-2022-revisiting"></d-cite>. To address this issue, this blog post introduces an approach combining continual pre-training and knowledge distillation for pre-training adapters, which serve as a foundation for weight initialization in adapter-based fine-tuning. This replaces the traditional random initialization, potentially improving the efficiency and effectiveness of the fine-tuning process.
+In this post, we provides an insights on batch size in LoRA fine-tuning, and outlines two promising research directions to advance our understanding and methodology:
+
+1. Main Finding
+2. Main Message
 
 
 ## Pre-training of Foundation Adapters
