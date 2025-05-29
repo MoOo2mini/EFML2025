@@ -64,7 +64,8 @@ In this post, we explore how batch size influences the training of LoRA-based me
 
 ## Motivation
 
-기본 PiSSA config.에서의 PiSSA, MiLoRA, LoRA results
+Figrue 1. 기본 PiSSA config.에서의 PiSSA, MiLoRA, LoRA results
+We trained [Llama-2-7B](https://huggingface.co/meta-llama/Llama-2-7b-hf) with different 
 
 ## Background
 
@@ -79,6 +80,8 @@ Larger batches provide more stable and accurate gradients by aggregating more in
 Therefore, finding the optimal batch size is key to balancing the trade-off between computational efficiency and generalization. This has prompted extensive research in the deep learning community, particularly regarding the scaling of batch sizes and their effects on training dynamics. A critical element of this research is the concept of Critical Batch Size (CBS), which refers to the batch size beyond which increasing the size no longer significantly reduces the number of training steps. This area of study is critical because choosing the right batch size can significantly impact both the speed of training and the final performance of the model. The ability to train large models efficiently while maintaining or improving generalization is a central challenge, and ongoing research continues to refine strategies for batch size selection and optimization.
 
 ### Interplay with LoRA
+
+LoRA variants 발전 + PiSSA & MiLoRA 간략 설명
 
 이건 GPT에서 추출 정리
 LoRA기 때문에 다른 점 (고려사항) ex) LoRA is often used in resource-constrained environments that demand quick, reliable hyperparameter choices without exhaustive tuning.기 때문에 관련 연구가 있다거나
