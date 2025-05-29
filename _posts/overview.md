@@ -53,15 +53,18 @@ _styles: >
 
 ## Introduction
 
-Low-Rank Adaptation (LoRA) has become a popular method for fine-tuning large language models (LLMs) efficiently by injecting small trainable low-rank matrices into the model’s weights. While LoRA and its variants show impressive performance, the optimal training settings for LoRA still remain under-explored, particularly the impact of batch size. This is particularly problematic in practical settings, as LoRA is frequently employed in resource-constrained environments where practitioners must make fast and effective hyperparameter decisions without exhaustive tuning. Moreover, recent LoRA variants like PiSSA and MiLoRA propose seemingly contradictory initialization strategies (principal vs. minor singular components), making it difficult to discern best practices since each work uses different experimental setups. This lack of standardization contributes to performance discrepancies across studies, obscuring the true impact of design decisions. From this view, we aim to demystify the following question: 
-“How batch size affects the training dynamics of LoRA-based methods”
+Low-Rank Adaptation (LoRA) has emerged as a widely adopted technique for efficiently fine-tuning large language models (LLMs) by injecting lightweight trainable low-rank matrices into the model's weights. Despite its growing popularity, the optimal training configurations for LoRA, particularly the role of batch size, remain underexplored. This presents a challenge in real-world scenarios, where LoRA is often used in resource-constrained environments that demand quick, reliable hyperparameter choices without exhaustive tuning.
 
-In this post, we provides an insights on batch size in LoRA fine-tuning, and outlines two promising research directions to advance our understanding and methodology:
+Compounding this issue, recent LoRA variants such as PiSSA and MiLoRA propose seemingly contradictory initialization strategies (principal vs. minor singular components), making it difficult to discern best practices since each work uses different experimental setups. However, these findings are based on divergent experimental setups, making it difficult to draw consistent conclusions or establish best practices. This lack of standardization contributes to performance discrepancies across studies, obscuring the true impact of design decisions.
+
+In this post, we explore how batch size influences the training of LoRA-based methods, and outline two promising research directions to advance our understanding and methodology:
 
 1. Main Finding
 2. Main Message
 
 ## Motivation
+
+기본 PiSSA config.에서의 PiSSA, MiLoRA, LoRA results
 
 ## Background
 
@@ -84,11 +87,11 @@ Accurate mini batch, Data Parallelism, Critical Batch Size
 
 ### Experimental setup 
 
+In all experiments, we use [Llama-2-7B](https://huggingface.co/meta-llama/Llama-2-7b-hf) as the baseline model. We compare 3 different methods (LoRA, PiSSA, MiLoRA) on various downstream tasks.
+itemize로 설명..?
 
-In all experiments, we use Low-Rank Adaptation (LoRA) <d-cite key="hu2022lora"></d-cite> exclusively as our adapters, applying them across all linear layers in the model architecture. In addition, we set the mixture weight $$\alpha$$ in the final loss equation to 0.5, i.e. $$\mathcal{L} = 0.5\mathcal{L}_{\text{KD}} + 0.5\mathcal{L}_{\text{LM}}$$.
+We conduct our experiments on 
 
-
-In  a preliminary experiment, we perform continual pre-training using the "frozen" [Llama-3.2-1B](https://huggingface.co/meta-llama/Llama-3.2-1B) as the student model with LoRA rank 8 on the [QuRatedPajama-260B](https://huggingface.co/datasets/princeton-nlp/QuRatedPajama-260B) dataset <d-cite key="pmlr-v235-wettig24a"></d-cite>. We find that the loss and evaluation scores converge at 5B training tokens. Therefore, we use a subset of 5B tokens from QuRatedPajama-260B as our pre-training data for all pre-training settings. 
 
 ### Knowledge distillation helps improve performance
 
