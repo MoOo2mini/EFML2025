@@ -66,7 +66,7 @@ In this post, we explore how batch size influences the training of LoRA-based me
 
 Figrue 1. 기본 PiSSA config.에서의 PiSSA, MiLoRA, LoRA results
 
-We fine-tuned [Llama-2-7B](https://huggingface.co/meta-llama/Llama-2-7b-hf) using LoRA and its recent variants (PiSSA, MiLoRA), adopting the hyperparameter configuration from ? et al. (XXXX). Figure 1 presents the test accuracy on HumanEval after training on the Code-Feedback dataset for a single epoch. While ? et al. (XXXX) achieves strong performance under their original settings, we observe that MiLoRA outperforms other methods when simply reducing the batch size. This result highlights a key insight: training effectiveness is highly sensitive to configuration choices, especially batch size.
+We fine-tuned [Llama-2-7B](https://huggingface.co/meta-llama/Llama-2-7b-hf) using LoRA and its recent variants (PiSSA, MiLoRA), adopting the hyperparameter configuration from ? et al. (XXXX). Figure 1 presents the test accuracy on HumanEval benchmark after training on the Code-Feedback dataset for a single epoch. While ? et al. (XXXX) achieves strong performance under their original settings, we observe that MiLoRA outperforms other methods when simply reducing the batch size. This result highlights a key insight: training effectiveness is highly sensitive to configuration choices, especially batch size.
 
 To demystify the impact of batch size on fine-tuning with low-rank adaptation, we focus on the following two questions:
 
