@@ -53,17 +53,19 @@ _styles: >
 
 ## Introduction
 
-Low-Rank Adaptation (LoRA) has emerged as a widely adopted technique for efficiently fine-tuning large language models (LLMs). By injecting lightweight, trainable low-rank matrices into pretrained weights, LoRA offers a practical solution for adapting massive models without the full cost of end-to-end training. Despite its growing popularity, its sensitivity to key training hyperparameters, especially batch size, remains underexplored. This presents a challenge in real-world scenarios, where LoRA is often used in resource-constrained environments that demand quick, reliable hyperparameter choices without exhaustive tuning.
+**Low-Rank Adaptation (LoRA)** has emerged as a widely adopted technique for efficiently fine-tuning large language models (LLMs). By injecting lightweight, trainable low-rank matrices into pretrained weights, LoRA offers a practical solution for adapting massive models without the full cost of end-to-end training. Despite its growing popularity, its sensitivity to key training hyperparameters, especially **batch size**, remains underexplored. This presents a challenge in real-world scenarios, where LoRA is often used in resource-constrained environments that demand quick, reliable hyperparameter choices without exhaustive tuning.
 
 Complicating matters further, recent LoRA variants such as PiSSA and MiLoRA propose seemingly contradictory initialization strategies (principal vs. minor singular components), yet each work reports gain based on different experimental setups. This lack of consistency makes it difficult to discern whether observed improvements stem from algorithmic advances or simply from favorable training configurations. As a result, best practices remain unclear, and the actual influence of design choices like initialization and batch size is frequently masked.
 
-In this post, we explore how batch size influences the training of LoRA-based methods.
+In this post, we explore **how batch size influences the training of LoRA-based methods**.
 
 Our main contributions are as follows:
 
+{% highlight c++ linenos %}
 1. We show that batch size plays a critical role in LoRA fine-tuning, with up to X% variation in test accuracy depending on its setting.
 2. We demonstrate that vanilla LoRA can match or even outperform recent variants like PiSSA and MiLoRA, simply by tuning the batch size appropriately.
 3. We uncover non-monotonic trends in LoRA’s performance as batch size increases, underscoring the need for a deeper understanding of its optimization behavior.
+{% endhighlight %}
    
 ## Motivation
 
