@@ -53,27 +53,30 @@ _styles: >
 
 ## Introduction
 
-Low-Rank Adaptation (LoRA) has emerged as a widely adopted technique for efficiently fine-tuning large language models (LLMs) by injecting lightweight trainable low-rank matrices into the model's weights. Despite its growing popularity, the optimal training configurations for LoRA, particularly the role of batch size, remain underexplored. This presents a challenge in real-world scenarios, where LoRA is often used in resource-constrained environments that demand quick, reliable hyperparameter choices without exhaustive tuning.
+Low-Rank Adaptation (LoRA) has emerged as a widely adopted technique for efficiently fine-tuning large language models (LLMs). By injecting lightweight, trainable low-rank matrices into pretrained weights, LoRA offers a practical solution for adapting massive models without the full cost of end-to-end training. Despite its growing popularity, its sensitivity to key training hyperparameters, especially batch size, remains underexplored. This presents a challenge in real-world scenarios, where LoRA is often used in resource-constrained environments that demand quick, reliable hyperparameter choices without exhaustive tuning.
 
-Compounding this issue, recent LoRA variants such as PiSSA and MiLoRA propose seemingly contradictory initialization strategies (principal vs. minor singular components), making it difficult to discern best practices since each work uses different experimental setups. However, these findings are based on divergent experimental setups, making it difficult to draw consistent conclusions or establish best practices. This lack of standardization contributes to performance discrepancies across studies, obscuring the true impact of design decisions.
+Complicating matters further, recent LoRA variants such as PiSSA and MiLoRA propose seemingly contradictory initialization strategies (principal vs. minor singular components), yet each work reports gain based on different experimental setups. This lack of consistency makes it difficult to discern whether observed improvements stem from algorithmic advances or simply from favorable training configurations. As a result, best practices remain unclear, and the actual influence of design choices like initialization and batch size is frequently masked.
 
-In this post, we explore how batch size influences the training of LoRA-based methods, and outline two promising research directions to advance our understanding and methodology:
+In this post, we explore how batch size influences the training of LoRA-based methods. Our main contributions are as follows:
 
-1. Main Finding
-2. Main Message
-
+1. We show that batch size plays a critical role in LoRA fine-tuning, with up to X% variation in test accuracy depending on its setting.
+2. We demonstrate that vanilla LoRA can match or even outperform recent variants like PiSSA and MiLoRA, simply by tuning the batch size appropriately.
+3. We uncover non-monotonic trends in LoRA’s performance as batch size increases, underscoring the need for a deeper understanding of its optimization behavior.
+   
 ## Motivation
 
 Figrue 1. 기본 PiSSA config.에서의 PiSSA, MiLoRA, LoRA results
 
-We fine-tuned <a href="https://huggingface.co/meta-llama/Llama-2-7b-hf">Llama-2-7B</a> using LoRA and its recent variants, PiSSA and MiLoRA, adopting the hyperparameter configuration from ? et al. (XXXX). Figure 1 demonstrates the test accuracy on HumanEval benchmark after training on the Code-Feedback dataset for a single epoch. While ? et al. (XXXX) achieves strong performance under their original settings, we observe that MiLoRA outperforms other methods when simply reducing the batch size. This result highlights a key insight: training effectiveness is highly sensitive to configuration choices, especially batch size.
+We fine-tune <a href="https://huggingface.co/meta-llama/Llama-2-7b-hf">Llama-2-7B</a> using LoRA and its recent variants, PiSSA and MiLoRA, following the hyperparameter configuration proposed by ? et al. (XXXX). As shown in Figure 1, we evaluate their test accuracy on the HumanEval benchmark after a single epoch of training on the CodeFeedback dataset. While the original configuration favors PiSSA, we find that MiLoRA outperforms other methods simply by reducing the batch size—without any structural modification.
 
-To demystify the impact of batch size on fine-tuning with low-rank adaptation, we focus on the following two questions:
+This result highlights a key insight: training effectiveness in LoRA-based methods is highly sensitive to configuration choices, particularly batch size. Yet, these factors are often overlooked in comparative studies.
 
-1. How does batch size affect the training dynamics of LoRA-based methods when paired with an optimally tuned learning rate?
-2. Given a fixed data budget, how can we select the batch size that yields the best performance?
+To demystify the impact of batch size, we focus on following two key questions:
+
+1. How does batch size affect the LoRA training dynamics when paired with an optimally tuned learning rate?
+2. Under a fixed data budget, how can we choose a batch size that baalnces perfomrance and efficiency?
    
-Through this lens, we aim to clarify the relationship between batch size and fine-tuning efficacy in LoRA-style adaptation methods.
+Through this lens, we aim to reveal the underappreciated role of batch size in LoRA-based adaptation and provide practical guidance for future studies and real-world deployments.
 
 ## Background
 
@@ -114,11 +117,15 @@ Figure X. test accuracy for same epoch
 
 In Figure X, we compare the test performance of LoRA and its recent variants, PiSSA and MiLoRA, across a range of batch sizes, each paired with an optimally tuned learning rate. We observe that batch size has a substantial impact on LoRA based methods, with accuracy fluctuations of up to X% on the ? task. Notably, when the batch size is properly configured, vanilla LoRA matches or even outperforms other complex methods.
 
-This suggests that the performance gap previously attributed to architectural improvements may, in part, stem from suboptimal training configurations. Our findings highlight that standard LoRA, without any structural changes, remains a strong baseline, so long as traditional hyperparameters like batch size and learning rate are carefully tuned. Appendix 언급 + Table..?
+This suggests that the performance gap previously attributed to architectural improvements may, in part, stem from suboptimal training configurations. Our findings highlight that standard LoRA, without any structural changes, remains a strong baseline, so long as traditional hyperparameters like batch size and learning rate are carefully tuned. Appendix 언급 + Table.. (추가할까 아니면 애시당초 table로 깔까)?
 
 ### 뭐라하지2
 
 Figure W. LoRA-4to512_various_tasks
+
+To better understand the overall impact of batch size, we extend our analysis by evaluating LoRA across a broader range, from asmall to exteremely large batch sizes (up to 512). Surprisingly, we observe a non-monotonic trend in test accuracy: performance initially drops, then rises unexectedly at intermediate batch sizes. before degrading again at the largest setting.
+
+This unpredictable behavior makes it challenging to select a batch size that balances training efficiency and generalization performance. Our findings suggest that larger batch sizes do not always lead to worse performance, while they show poor performance in the very large batch. This underscores the need for a deeper understanding of how batch size interacts with optimization dynamics, and highlights the importance of careful configuration tuning in LoRA-based training pipelines. 여기도 Appendix 연결 무언가
 
 ## Conclusion
 
@@ -127,3 +134,5 @@ Figure W. LoRA-4to512_various_tasks
 동일 step 비교
 
 learning rate 별 plot
+
+위에 안 넣은 task에 대한 plot
