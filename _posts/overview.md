@@ -107,11 +107,20 @@ Fine tuning 상황
 
 ### Experimental setup 
 
-In all our experiments, we adopt <a href="https://huggingface.co/meta-llama/Llama-2-7b-hf">Llama-2-7B</a> as the backbone for fine-tuning across a range of natural language understanding (NLU) downstream tasks.
+For all experiments, we adopt <a href="https://huggingface.co/meta-llama/Llama-2-7b-hf">Llama-2-7B</a> as the backbone for fine-tuning across a diverse set of natural language understanding (NLU) downstream tasks:
 
-We explore batch sizes in the range of $${2^2, 2^3, 2^4, 2^6, 2^7}$$. Since Figure 1 only modifies the batch size of training, the result is somewhat misleading while the proper learning rate is a critical factor for varying batch size training. To througly analyze the sole impact of the batch size, we search for the optimal learning rate for each batch size in $${1e-3, 3e-4, 5e-5, 2e-5, 5e-6, 1e-6}$$, grounded in commonly used configurations across recent PEFT literatures. 
+- GSM8K: A benchmark for grade-school level mathematical reasoning and arithmetic problems.
 
-We conduct all experiments using the Hugging Face transformers and peft libraries, and monitor training dynamics such as convergence speed and final performance under each configuration
+- MATH: A challenging dataset focused on high school and competition-level math problems.
+
+- HumanEval: A code generation benchmark where the model is asked to complete Python functions.
+
+- MBPP: A dataset for Python function generation based on simple problem descriptions.
+
+- MT-Bench: A multi-turn instruction-following evaluation, automatically scored using Gemini?.
+
+To examine the impact of batch size, we evaluate LoRA and its variants across a range of values $$\{4, 8, 16, 64, 128, 512\}$$. While Figure 1 varies only the batch size during training, such results can be misleading, learning rate is a critical co-factor, especially when changing the batch size. To isolate the effect of batch size itself, we conduct a small grid search for the optimal learning rate for each batch size, selecting from $$\{1e-3, 3e-4, 5e-5, 2e-5, 5e-6, 1e-6\}$$, based on commonly used ranges in recent PEFT literature.
+Since Figure 1 only modifies the batch size of training, the result is somewhat misleading while the proper learning rate is a critical factor for varying batch size training. To througly analyze the sole impact of the batch size, we search for the optimal learning rate for each batch size in $${1e-3, 3e-4, 5e-5, 2e-5, 5e-6, 1e-6}$$, grounded in commonly used configurations across recent PEFT literatures. 
 
 ### 뭐라하지1
 
