@@ -108,13 +108,22 @@ We explore batch sizes in the range of $${2^2, 2^3, 2^4, 2^6, 2^7}$$. Since Figu
 
 We conduct all experiments using the Hugging Face transformers and peft libraries, and monitor training dynamics such as convergence speed and final performance under each configuration
 
-
-Figure W. LoRA-4to512_various_tasks
+### 뭐라하지1
 
 Figure X. test accuracy for same epoch
 
-Figure Y. test accruacy for same steps
+In Figure X, we compare the test performance of LoRA and its recent variants, PiSSA and MiLoRA, across a range of batch sizes, each paired with an optimally tuned learning rate. We observe that batch size has a substantial impact on LoRA based methods, with accuracy fluctuations of up to X% on the ? task. Notably, when the batch size is properly configured, vanilla LoRA matches or even outperforms other complex methods.
+
+This suggests that the performance gap previously attributed to architectural improvements may, in part, stem from suboptimal training configurations. Our findings highlight that standard LoRA, without any structural changes, remains a strong baseline, so long as traditional hyperparameters like batch size and learning rate are carefully tuned. Appendix 언급 + Table..?
+
+### 뭐라하지2
+
+Figure W. LoRA-4to512_various_tasks
 
 ## Conclusion
 
 ## Apendix..?
+
+동일 step 비교
+
+learning rate 별 plot
