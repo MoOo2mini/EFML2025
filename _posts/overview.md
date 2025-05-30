@@ -66,7 +66,7 @@ In this post, we explore how batch size influences the training of LoRA-based me
 
 Figrue 1. 기본 PiSSA config.에서의 PiSSA, MiLoRA, LoRA results
 
-We fine-tuned [Llama-2-7B](https://huggingface.co/meta-llama/Llama-2-7b-hf) using LoRA and its recent variants (PiSSA, MiLoRA), adopting the hyperparameter configuration from ? et al. (XXXX). Figure 1 presents the test accuracy on HumanEval benchmark after training on the Code-Feedback dataset for a single epoch. While ? et al. (XXXX) achieves strong performance under their original settings, we observe that MiLoRA outperforms other methods when simply reducing the batch size. This result highlights a key insight: training effectiveness is highly sensitive to configuration choices, especially batch size.
+We fine-tuned <a href="https://huggingface.co/meta-llama/Llama-2-7b-hf">Llama-2-7B</a> using LoRA and its recent variants, PiSSA and MiLoRA, adopting the hyperparameter configuration from ? et al. (XXXX). Figure 1 demonstrates the test accuracy on HumanEval benchmark after training on the Code-Feedback dataset for a single epoch. While ? et al. (XXXX) achieves strong performance under their original settings, we observe that MiLoRA outperforms other methods when simply reducing the batch size. This result highlights a key insight: training effectiveness is highly sensitive to configuration choices, especially batch size.
 
 To demystify the impact of batch size on fine-tuning with low-rank adaptation, we focus on the following two questions:
 
@@ -109,6 +109,8 @@ To thoroughly analyze training behavior, we vary two key hyperparameters: batch 
 These hyperparameter choices are grounded in configurations commonly used across recent PEFT literature, including CORA, LoRA+, LQ-LoRA, QLoRA, and OLoRA. By aligning with these frequently adopted settings, our goal is to ensure fair and representative comparisons that reflect real-world usage patterns in PEFT research.
 
 We conduct all experiments using the Hugging Face transformers and peft libraries, and monitor training dynamics such as convergence speed and final performance under each configuration.
+
+Figure W. LoRA-4to512_various_tasks
 
 Figure X. test accuracy for same epoch
 
