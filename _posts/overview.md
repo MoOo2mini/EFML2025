@@ -131,6 +131,12 @@ This unpredictable behavior makes it challenging to select a batch size that bal
 
 ## Conclusion
 
+In this study, we revisit the performance of LoRA and its recent variants using the LLaMA-2-7B model, with a particular focus on the often-overlooked role of batch size. Our findings reveal two key insights:
+
+**First**, when the batch size is properly tuned, vanilla LoRA can achieve performance on par with, or even better than, its variants, without requiring any structural modifications. **Second**, we observe that the relationship between batch size and test performance is non-monotonic: performance increases at intermediate batch sizes but drops at larger ones, forming a nonlinear pattern that defies standard assumptions. These observations highlight the importance of carefully controlling for hyperparameter configurations when evaluating new parameter-efficient fine-tuning (PEFT) methods. Without such control, reported improvements may reflect differences in tuning rather than actual algorithmic gains.
+
+Finally, the unexpected fluctuations in performance across batch sizes suggest that subtle dynamics in optimization, which requires further theoretical investigation and large-scale empirical validation. We hope this work encourages the community to revisit current evaluation practices and adopt more rigorous, configuration-aware comparisons when assessing PEFT techniques.
+
 ## Apendix..?
 
 동일 step 비교
