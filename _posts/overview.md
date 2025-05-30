@@ -102,13 +102,12 @@ Fine tuning 상황
 
 ### Experimental setup 
 
-In all our experiments, we adopt <a href="https://huggingface.co/meta-llama/Llama-2-7b-hf">Llama-2-7B</a> as the backbone for fine-tuning. Our study focuses on comparing three popular PEFT (Parameter-Efficient Fine-Tuning) methods: LoRA, PiSSA, and MiLoRA, across a range of downstream tasks.
+In all our experiments, we adopt <a href="https://huggingface.co/meta-llama/Llama-2-7b-hf">Llama-2-7B</a> as the backbone for fine-tuning across a range of natural language understanding (NLU) downstream tasks.
 
-To thoroughly analyze training behavior, we vary two key hyperparameters: batch size and learning rate. Specifically, we explore batch sizes of 4, 8, 16, 64, and 128, and learning rates of 1e-3, 3e-4, 5e-5, 2e-5, 5e-6, and 1e-6.
+We explore batch sizes in the range of $${2^2, 2^3, 2^4, 2^6, 2^7}$$. Since Figure 1 only modifies the batch size of training, the result is somewhat misleading while the proper learning rate is a critical factor for varying batch size training. To througly analyze the sole impact of the batch size, we search for the optimal learning rate for each batch size in $${1e-3, 3e-4, 5e-5, 2e-5, 5e-6, 1e-6}$$, grounded in commonly used configurations across recent PEFT literatures. 
 
-These hyperparameter choices are grounded in configurations commonly used across recent PEFT literature, including CORA, LoRA+, LQ-LoRA, QLoRA, and OLoRA. By aligning with these frequently adopted settings, our goal is to ensure fair and representative comparisons that reflect real-world usage patterns in PEFT research.
+We conduct all experiments using the Hugging Face transformers and peft libraries, and monitor training dynamics such as convergence speed and final performance under each configuration
 
-We conduct all experiments using the Hugging Face transformers and peft libraries, and monitor training dynamics such as convergence speed and final performance under each configuration.
 
 Figure W. LoRA-4to512_various_tasks
 
