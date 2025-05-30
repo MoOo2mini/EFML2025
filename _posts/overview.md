@@ -62,7 +62,9 @@ In this post, we explore **how batch size influences the training of LoRA-based 
 > **Our main contributions are as follows:**
 > 
 > **1. We show that batch size plays a critical role in LoRA fine-tuning, with up to X% variation in test accuracy depending on its setting.**
+> 
 > **2. We demonstrate that vanilla LoRA can match or even outperform recent variants like PiSSA and MiLoRA, simply by tuning the batch size appropriately.**
+> 
 > **3. We uncover non-monotonic trends in LoRA’s performance as batch size increases, underscoring the need for a deeper understanding of its optimization behavior.**
 
 
