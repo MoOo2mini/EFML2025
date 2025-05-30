@@ -102,7 +102,7 @@ Fine tuning 상황
 
 ### Experimental setup 
 
-In all our experiments, we adopt the LLaMA-2-7B model as the backbone for fine-tuning. Our study focuses on comparing three popular PEFT (Parameter-Efficient Fine-Tuning) methods: LoRA, PiSSA, and MiLoRA, across a range of downstream tasks.
+In all our experiments, we adopt <a href="https://huggingface.co/meta-llama/Llama-2-7b-hf">Llama-2-7B</a> as the backbone for fine-tuning. Our study focuses on comparing three popular PEFT (Parameter-Efficient Fine-Tuning) methods: LoRA, PiSSA, and MiLoRA, across a range of downstream tasks.
 
 To thoroughly analyze training behavior, we vary two key hyperparameters: batch size and learning rate. Specifically, we explore batch sizes of 4, 8, 16, 64, and 128, and learning rates of 1e-3, 3e-4, 5e-5, 2e-5, 5e-6, and 1e-6.
 
