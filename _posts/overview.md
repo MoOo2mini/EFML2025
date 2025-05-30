@@ -1,6 +1,6 @@
 ---
 layout: distill
-title: The Effect of Batch Size in LoRA Training.
+title: Understanding the Role of Batch Size in Low-Rank Adaptation
 description: TODO.
 
 
